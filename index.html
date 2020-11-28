@@ -42,16 +42,7 @@
         <p>Talking To:</p>
         <ul id="conversations" class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Active</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="#">Active</a>
           </li>
         </ul>
         <br>
@@ -80,8 +71,8 @@
               Sign Up
             </h5>
             <hr>
-            <div id="usernameTaken" class="alert alert-danger" role="alert">
-              That username is taken. Try again.
+            <div id="signupError" class="alert alert-danger" role="alert">
+              Sign Up error!
             </div>
             <form id="signupForm">
               <div class="form-group">
@@ -106,6 +97,9 @@
               Log In
             </h5>
             <hr>
+            <div id="loginError" class="alert alert-danger" role="alert">
+              Log In error!
+            </div>
             <form id="loginForm">
               <div class="form-group">
                 <label for="emailLogin">Email address</label>
@@ -190,7 +184,8 @@
         console.log("signed out")
         $("#welcomeText").text("Welcome to the Lightweight Messaging app.");
         $("#logout").show();
-        $("#usernameTaken").hide();
+        $("#signupError").hide();
+        $("#loginError").hide();
         $('#accountModal').modal('show');
         $("#messages").html("");
         $("#conversations").html("");
@@ -220,8 +215,8 @@
                   });
                 }
                 if (val != null && val['name'] != undefined) displayName = val.name;
-                var e = convo == selected_conversation ? " active" : "";
-                conversationHTML.append('<li class="nav-item"><a class="nav-link' + e + '" onclick="setActiveConversation(' + convo + ')" href="#">' + displayName + '</a></li>')
+                var e = convo == selected_conversation ? " font-weight-bold" : "";
+                conversationHTML.append('<li class="nav-item"><a id="convo_' + convo + '" class="nav-link' + e + '" onclick="setActiveConversation(' + convo + ')" href="#">' + displayName + '</a></li>')
               });
             });
             console.log("Username: " + username);
@@ -264,7 +259,6 @@
         snapshot.forEach((childSnapshot) => {
           var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
-          // console.log(childKey + ", " + childData);
           current_id = childKey;
           //if (childData.startsWith(username))
             //messages.append("<p class='float-right'>" + childData + "</p>");
@@ -274,11 +268,14 @@
         var element = document.getElementById("messages");
         element.scrollTop = element.scrollHeight;
         current_id++;
-        console.log("current_id: " + current_id);
+        // console.log("current_id: " + current_id);
         if (initial_messages_get) {
           initial_messages_get = false;
         }
       });
+
+      $("#conversations").find($("a")).removeClass("font-weight-bold");
+      $("#convo_" + selected_conversation).addClass("font-weight-bold");
     }
 
     function startNewConversation() {
@@ -347,13 +344,13 @@
             }).catch((error) => {
               var errorCode = error.code;
               var errorMessage = error.message;
-              $("#usernameTaken").text(errorMessage);
-              $("#usernameTaken").show();
+              $("#signupError").text(errorMessage);
+              $("#signupError").show();
               console.log("Sign up error: " + errorCode + ", " + errorMessage);
             });
         } else {
-          $("#usernameTaken").text("Username taken. Try again.");
-          $("#usernameTaken").show();
+          $("#signupError").text("Username taken. Try again.");
+          $("#signupError").show();
           console.log("Username taken. Try again.");
         }
       });
@@ -369,6 +366,8 @@
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
+          $("#loginError").text(errorMessage);
+          $("#loginError").show();
         });
     }
 
