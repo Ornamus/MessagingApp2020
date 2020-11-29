@@ -180,6 +180,7 @@
   var conversations = [];
   var selected_conversation = 1;
   var messageRef = null;
+  var loggedIn = false;
 
   // Runs whenever the user signs in or logs out
   firebase.auth().onAuthStateChanged((user) => {
@@ -187,6 +188,8 @@
       // User is signed in
       uid = user.uid;
       console.log("signed in");
+      loggedIn = true;
+      $("#logout").text("Log Out");
     } else {
       uid = null;
       console.log("signed out")
@@ -197,6 +200,8 @@
       $('#accountModal').modal('show');
       $("#messages").html("");
       $("#conversations").html("");
+      $("#logout").text("Sign In");
+      loggedIn = false;
     }
     if (uid != null) {
       // Get the user's username and conversations from the database
@@ -378,11 +383,16 @@
 
   // Logs the user out.
   function logout() {
-    firebase.auth().signOut().then(function () {
-      // Sign-out successful.
-    }).catch(function (error) {
-      // An error happened.
-    });
+    console.log("Logout! is logged in: " + loggedIn);
+    if (loggedIn) {
+      firebase.auth().signOut().then(function () {
+        // Sign-out successful.
+      }).catch(function (error) {
+        // An error happened.
+      });
+    } else {
+      $('#accountModal').modal();
+    }
   }
 </script>
 </body>
