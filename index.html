@@ -22,19 +22,10 @@
           integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
           crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-
   <meta name="theme-color" content="#fafafa">
 </head>
 
 <body>
-
-<!-- Add your site or application content here -->
-<script src="js/vendor/modernizr-3.11.2.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
-
 <div class="container">
   <br>
   <a id="logout" onclick="logout()" class="float-right" href="#">Log Out</a>
@@ -251,7 +242,7 @@
   $("#sendMessageForm").submit(function (event) {
     var input = $("#message_input");
     var val = input.val();
-    if (val != "" && val != " " && val != null) {
+    if (val != "" && val != " " && val != null && current_id != -1) {
       sendMessage(input.val());
     }
     input.val("");
