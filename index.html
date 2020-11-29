@@ -1,9 +1,9 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="">
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Lightweight Messaging</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,11 +13,14 @@
   <meta property="og:image" content="">
 
   <link rel="apple-touch-icon" href="icon.png">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-  <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+          crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -27,358 +30,361 @@
 
 <body>
 
-  <!-- Add your site or application content here -->
-  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+<!-- Add your site or application content here -->
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
 
-  <div class="container">
-    <br>
-    <a id="logout" onclick="logout()" class="float-right" href="#">Log Out</a>
-    <p id="welcomeText">Welcome to the Lightweight Messaging app.</p>
-    <hr>
-    <div class="row">
-      <div class="col-12 col-md-4 col-lg-3">
-        <p>Talking To:</p>
-        <ul id="conversations" class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Active</a>
-          </li>
-        </ul>
-        <br>
-        <button id="newConvo" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newConvoModal">New Convo</button>
-        <hr>
-      </div>
-      <div class="col-12 col-md-8 col-lg-9">
-        <div id="messages" style="height: 400px; overflow: scroll;"></div>
+<div class="container">
+  <br>
+  <a id="logout" onclick="logout()" class="float-right" href="#">Log Out</a>
+  <p id="welcomeText">Welcome to the Lightweight Messaging app.</p>
+  <hr>
+  <div class="row">
+    <div class="col-12 col-md-4 col-lg-3">
+      <p>Talking To:</p>
+      <ul id="conversations" class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Active</a>
+        </li>
+      </ul>
+      <br>
+      <button id="newConvo" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newConvoModal">New Convo
+      </button>
+      <hr>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9">
+      <div id="messages" style="height: 400px; overflow: scroll;"></div>
+      <form id="sendMessageForm">
         <div class="input-group mb-3">
-            <input id="message_input" type="text" class="form-control" placeholder="Text">
-            <div class="input-group-append">
-              <button id="send_message" class="btn btn-primary" type="button">Send</button>
-            </div>
+          <input id="message_input" type="text" class="form-control" placeholder="Text">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Send</button>
           </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body row">
+        <div class="col-6">
+          <h5>
+            Sign Up
+          </h5>
+          <hr>
+          <div id="signupError" class="alert alert-danger" role="alert">
+            Sign Up error!
+          </div>
+          <form id="signupForm">
+            <div class="form-group">
+              <label for="usernameField">Username</label>
+              <input type="text" class="form-control" id="usernameField" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="emailSignup">Email address</label>
+              <input type="email" class="form-control" id="emailSignup" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+            </div>
+            <div class="form-group">
+              <label for="passwordSignup">Password</label>
+              <input type="password" class="form-control" id="passwordSignup">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="col-6">
+          <h5>
+            Log In
+          </h5>
+          <hr>
+          <div id="loginError" class="alert alert-danger" role="alert">
+            Log In error!
+          </div>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="emailLogin">Email address</label>
+              <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="passwordLogin">Password</label>
+              <input type="password" class="form-control" id="passwordLogin">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-body row">
-          <div class="col-6">
-            <h5>
-              Sign Up
-            </h5>
-            <hr>
-            <div id="signupError" class="alert alert-danger" role="alert">
-              Sign Up error!
-            </div>
-            <form id="signupForm">
-              <div class="form-group">
-                <label for="usernameField">Username</label>
-                <input type="text" class="form-control" id="usernameField" aria-describedby="emailHelp">
-              </div>
-              <div class="form-group">
-                <label for="emailSignup">Email address</label>
-                <input type="email" class="form-control" id="emailSignup" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                  else.</small>
-              </div>
-              <div class="form-group">
-                <label for="passwordSignup">Password</label>
-                <input type="password" class="form-control" id="passwordSignup">
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-          <div class="col-6">
-            <h5>
-              Log In
-            </h5>
-            <hr>
-            <div id="loginError" class="alert alert-danger" role="alert">
-              Log In error!
-            </div>
-            <form id="loginForm">
-              <div class="form-group">
-                <label for="emailLogin">Email address</label>
-                <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
-              </div>
-              <div class="form-group">
-                <label for="passwordLogin">Password</label>
-                <input type="password" class="form-control" id="passwordLogin">
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+<div class="modal fade" id="newConvoModal" tabindex="-1" role="dialog" aria-labelledby="newConvoModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Conversation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Type someone's username here, and then you can start talking to them!</p>
+        <div class="input-group mb-3">
+          <input id="targetUsername" type="text" class="form-control" placeholder="Recipient's username"
+                 aria-label="Recipient's username">
+          <div class="input-group-append">
+            <button onclick="startNewConversation()" class="btn btn-primary" type="button">Go</button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-
-  <div class="modal fade" id="newConvoModal" tabindex="-1" role="dialog" aria-labelledby="newConvoModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New Conversation</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Type someone's username here, and then you can start talking to them!</p>
-          <div class="input-group mb-3">
-            <input id="targetUsername" type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username">
-            <div class="input-group-append">
-              <button onclick="startNewConversation()" class="btn btn-primary" type="button">Go</button>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 
 
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
 
 
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyBLWGDlOF965LmM5bExvKAtCYbLcq7wt3Q",
-      authDomain: "messagingapp-946ba.firebaseapp.com",
-      databaseURL: "https://messagingapp-946ba.firebaseio.com",
-      projectId: "messagingapp-946ba",
-      storageBucket: "messagingapp-946ba.appspot.com",
-      messagingSenderId: "692043249541",
-      appId: "1:692043249541:web:e7d77c51468db2743036ec"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+<script>
+  // Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBLWGDlOF965LmM5bExvKAtCYbLcq7wt3Q",
+    authDomain: "messagingapp-946ba.firebaseapp.com",
+    databaseURL: "https://messagingapp-946ba.firebaseio.com",
+    projectId: "messagingapp-946ba",
+    storageBucket: "messagingapp-946ba.appspot.com",
+    messagingSenderId: "692043249541",
+    appId: "1:692043249541:web:e7d77c51468db2743036ec"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
-    var uid = null;
-    var username = "Webby";
-    var conversations = [];
-    var selected_conversation = 1;
-    var messageRef = null;
+  var uid = null;
+  var username = "Webby";
+  var conversations = [];
+  var selected_conversation = 1;
+  var messageRef = null;
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        uid = user.uid;
-        console.log("signed in");
-      } else {
-        uid = null;
-        console.log("signed out")
-        $("#welcomeText").text("Welcome to the Lightweight Messaging app.");
-        $("#logout").show();
-        $("#signupError").hide();
-        $("#loginError").hide();
-        $('#accountModal').modal('show');
-        $("#messages").html("");
-        $("#conversations").html("");
-      }
-      if (uid != null) {
-        firebase.database().ref('users/' + uid).on('value', (snapshot) =>{
-          if (snapshot.val() && snapshot.val().username) {
-            username = snapshot.val().username;
-            conversations = snapshot.val().conversations.split(",");
-            setActiveConversation(conversations[0]);
-            $("#welcomeText").text("Welcome to the Lightweight Messaging app, " + username + ".");
+  // Runs whenever the user signs in or logs out
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in
+      uid = user.uid;
+      console.log("signed in");
+    } else {
+      uid = null;
+      console.log("signed out")
+      $("#welcomeText").text("Welcome to the Lightweight Messaging app.");
+      $("#logout").show();
+      $("#signupError").hide();
+      $("#loginError").hide();
+      $('#accountModal').modal('show');
+      $("#messages").html("");
+      $("#conversations").html("");
+    }
+    if (uid != null) {
+      // Get the user's username and conversations from the database
+      firebase.database().ref('users/' + uid).on('value', (snapshot) => {
+        if (snapshot.val() && snapshot.val().username) {
+          username = snapshot.val().username;
+          conversations = snapshot.val().conversations.split(",");
+          setActiveConversation(conversations[0]);
+          $("#welcomeText").text("Welcome to the Lightweight Messaging app, " + username + ".");
 
-            var conversationHTML = $("#conversations");
-            conversationHTML.html("");
-
-            conversations.forEach((convo)=>{
-              var displayName = "Conversation " + convo;
-              firebase.database().ref('conversations/' + convo + "/").once('value').then((convoSnapshot) => {
-                var val = convoSnapshot.val();
-                console.log(val);
-                console.log("Members of conversation " + convo + ":");
-                if (val != null && val.members != null) {
-                  Object.keys(val.members).forEach((id) => {
-                    console.log(id + ": " + val.members[id]);
-                    if (val.members[id] != username)
-                      displayName = val.members[id];
-                  });
-                }
-                if (val != null && val['name'] != undefined) displayName = val.name;
-                var e = convo == selected_conversation ? " font-weight-bold" : "";
-                conversationHTML.append('<li class="nav-item"><a id="convo_' + convo + '" class="nav-link' + e + '" onclick="setActiveConversation(' + convo + ')" href="#">' + displayName + '</a></li>')
-              });
+          // Get info on the conversations and display them as a clickable list
+          var conversationHTML = $("#conversations");
+          conversationHTML.html("");
+          conversations.forEach((convo) => {
+            var displayName = "Conversation " + convo;
+            firebase.database().ref('conversations/' + convo + "/").once('value').then((convoSnapshot) => {
+              var val = convoSnapshot.val();
+              if (val != null && val.members != null) {
+                Object.keys(val.members).forEach((id) => {
+                  if (val.members[id] != username)
+                    displayName = val.members[id];
+                });
+              }
+              if (val != null && val['name'] != undefined) displayName = val.name;
+              var e = convo == selected_conversation ? " font-weight-bold" : "";
+              conversationHTML.append('<li class="nav-item"><a id="convo_' + convo + '" class="nav-link' + e + '" onclick="setActiveConversation(' + convo + ')" href="#">' + displayName + '</a></li>')
             });
-            console.log("Username: " + username);
-          }
-        });
-      }
-    })
-
-    var initial_messages_get = true;
-    var current_id = -1;
-
-    $("#signupForm").submit(function(event){
-      signUp($("#usernameField").val(), $("#emailSignup").val(), $("#passwordSignup").val());
-      event.preventDefault();
-    });
-
-    $("#loginForm").submit(function(event){
-      login($("#emailLogin").val(), $("#passwordLogin").val());
-      event.preventDefault();
-    });
-
-    $("#send_message").click(function() {
-      var input = $("#message_input");
-      var val = input.val();
-      if (val != "" && val != " " && val != null) {
-        sendMessage(input.val());
-      }
-      input.val("");
-    })
-
-    function setActiveConversation(convo) {
-      console.log("Displaying conversation " + convo);
-      current_id = -1;
-      selected_conversation = convo;
-      if (messageRef != null) messageRef.off();
-      messageRef = firebase.database().ref('conversations/' + convo + '/messages');
-      messageRef.on('value', (snapshot) =>{
-        var messages = $("#messages");
-        messages.html("");
-        snapshot.forEach((childSnapshot) => {
-          var childKey = childSnapshot.key;
-          var childData = childSnapshot.val();
-          current_id = childKey;
-          //if (childData.startsWith(username))
-            //messages.append("<p class='float-right'>" + childData + "</p>");
-          //else
-            messages.append("<p>" + childData + "</p>");
-        });
-        var element = document.getElementById("messages");
-        element.scrollTop = element.scrollHeight;
-        current_id++;
-        // console.log("current_id: " + current_id);
-        if (initial_messages_get) {
-          initial_messages_get = false;
+          });
+          console.log("Authenticated as '" + username + "'");
         }
       });
-
-      $("#conversations").find($("a")).removeClass("font-weight-bold");
-      $("#convo_" + selected_conversation).addClass("font-weight-bold");
     }
+  })
 
-    function startNewConversation() {
-      var targetUsernameField = $("#targetUsername");
-      var targetUsername = targetUsernameField.val();
-      if (targetUsername != '' && targetUsername != ' ' && targetUsername != null) {
-        targetUsernameField.val('');
+  var current_id = -1;
 
-        var highestConvo = 0;
-        firebase.database().ref('conversations/').once('value').then((snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-            if (childSnapshot.key > highestConvo) highestConvo = childSnapshot.key;
-          });
-          highestConvo++;
+  $("#signupForm").submit(function (event) {
+    signUp($("#usernameField").val(), $("#emailSignup").val(), $("#passwordSignup").val());
+    event.preventDefault();
+  });
 
-          firebase.database().ref('users').once('value').then((userSnapshot) => {
-            var updates = {}
-            var targetUserExists = false;
-            userSnapshot.forEach((childSnapshot) => {
-              if (childSnapshot.val().username == targetUsername) {
-                targetUserExists = true;
-              }
-            });
-            if (targetUserExists) {
-              userSnapshot.forEach((childSnapshot) => {
-                if (childSnapshot.val().username == targetUsername || childSnapshot.val().username == username) {
-                  updates['users/' + childSnapshot.key + '/conversations'] = childSnapshot.val().conversations + ',' + highestConvo;
-                  updates['conversations/' + highestConvo + "/members/" + childSnapshot.key] = childSnapshot.val().username;
-                }
-              });
-              // updates['conversations/' + highestConvo + "/name"] = targetUsername + " & " + username;
-              firebase.database().ref().update(updates);
-              setActiveConversation(highestConvo);
-            } else {
-              console.log("Target user does not exist");
+  $("#loginForm").submit(function (event) {
+    login($("#emailLogin").val(), $("#passwordLogin").val());
+    event.preventDefault();
+  });
+
+  $("#sendMessageForm").submit(function (event) {
+    var input = $("#message_input");
+    var val = input.val();
+    if (val != "" && val != " " && val != null) {
+      sendMessage(input.val());
+    }
+    input.val("");
+    event.preventDefault();
+  });
+
+  // Sets the current displayed conversation and sets up the Firebase listener for data changes
+  function setActiveConversation(convo) {
+    current_id = -1;
+    selected_conversation = convo;
+    if (messageRef != null) messageRef.off();
+    messageRef = firebase.database().ref('conversations/' + convo + '/messages');
+    messageRef.on('value', (snapshot) => {
+      var messages = $("#messages");
+      messages.html("");
+      snapshot.forEach((childSnapshot) => {
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        current_id = childKey;
+        //if (childData.startsWith(username))
+        //messages.append("<p class='float-right'>" + childData + "</p>");
+        //else
+        messages.append("<p>" + childData + "</p>");
+      });
+      var element = document.getElementById("messages");
+      element.scrollTop = element.scrollHeight;
+      current_id++;
+    });
+
+    $("#conversations").find($("a")).removeClass("font-weight-bold");
+    $("#convo_" + selected_conversation).addClass("font-weight-bold");
+  }
+
+  // Creates a new conversation with a target user
+  function startNewConversation() {
+    var targetUsernameField = $("#targetUsername");
+    var targetUsername = targetUsernameField.val();
+    if (targetUsername != '' && targetUsername != ' ' && targetUsername != null) {
+      targetUsernameField.val('');
+
+      var highestConvo = 0;
+      firebase.database().ref('conversations/').once('value').then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          if (childSnapshot.key > highestConvo) highestConvo = childSnapshot.key;
+        });
+        highestConvo++;
+
+        firebase.database().ref('users').once('value').then((userSnapshot) => {
+          var updates = {}
+          var targetUserExists = false;
+          userSnapshot.forEach((childSnapshot) => {
+            if (childSnapshot.val().username == targetUsername) {
+              targetUserExists = true;
             }
           });
-        });
-      }
-      $('#newConvoModal').modal('hide');
-    }
-
-    function sendMessage(text) {
-      var val = username + ": " + text;
-      firebase.database().ref('conversations/' + selected_conversation + '/messages/' + current_id).set(val);
-    }
-
-    function signUp(newUserName, email, password) {
-      firebase.database().ref('users').once('value').then((userSnapshot) => {
-        var targetUserExists = false;
-        userSnapshot.forEach((childSnapshot) => {
-          if (childSnapshot.val().username == newUserName) {
-            targetUserExists = true;
+          if (targetUserExists) {
+            userSnapshot.forEach((childSnapshot) => {
+              if (childSnapshot.val().username == targetUsername || childSnapshot.val().username == username) {
+                updates['users/' + childSnapshot.key + '/conversations'] = childSnapshot.val().conversations + ',' + highestConvo;
+                updates['conversations/' + highestConvo + "/members/" + childSnapshot.key] = childSnapshot.val().username;
+              }
+            });
+            // updates['conversations/' + highestConvo + "/name"] = targetUsername + " & " + username;
+            firebase.database().ref().update(updates);
+            setActiveConversation(highestConvo);
+          } else {
+            console.log("Target user does not exist");
           }
         });
-        if (!targetUserExists) {
-          firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((user) => {
-              console.log("sign up successful");
-              console.log("UID: " + user.user.uid);
-              firebase.database().ref('users/' + user.user.uid).set({
-                username: newUserName,
-                conversations: "1"
-              });
-              $('#accountModal').modal('hide');
-            }).catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              $("#signupError").text(errorMessage);
-              $("#signupError").show();
-              console.log("Sign up error: " + errorCode + ", " + errorMessage);
-            });
-        } else {
-          $("#signupError").text("Username taken. Try again.");
-          $("#signupError").show();
-          console.log("Username taken. Try again.");
+      });
+    }
+    $('#newConvoModal').modal('hide');
+  }
+
+  // Send a message to the current active conversation
+  function sendMessage(text) {
+    var val = username + ": " + text;
+    firebase.database().ref('conversations/' + selected_conversation + '/messages/' + current_id).set(val);
+  }
+
+  // Sign up with a username, email, and password. Username and email must be unique.
+  function signUp(newUserName, email, password) {
+    firebase.database().ref('users').once('value').then((userSnapshot) => {
+      var targetUserExists = false;
+      userSnapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().username == newUserName) {
+          targetUserExists = true;
         }
       });
-    }
-
-    function login(email, password) {
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((user) => {
-          // Signed in
-          console.log("sign in successful");
-          $('#accountModal').modal('hide');
-        })
-        .catch((error) => {
+      if (!targetUserExists) {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then((user) => {
+            console.log("sign up successful");
+            console.log("UID: " + user.user.uid);
+            firebase.database().ref('users/' + user.user.uid).set({
+              username: newUserName,
+              conversations: "1"
+            });
+            $('#accountModal').modal('hide');
+          }).catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
-          $("#loginError").text(errorMessage);
-          $("#loginError").show();
+          $("#signupError").text(errorMessage);
+          $("#signupError").show();
+          console.log("Sign up error: " + errorCode + ", " + errorMessage);
         });
-    }
+      } else {
+        $("#signupError").text("Username taken. Try again.");
+        $("#signupError").show();
+        console.log("Username taken. Try again.");
+      }
+    });
+  }
 
-    function logout() {
-      firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-      }).catch(function(error) {
-        // An error happened.
+  // Log in with a given email and password.
+  function login(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        // Signed in
+        $('#accountModal').modal('hide');
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        $("#loginError").text(errorMessage);
+        $("#loginError").show();
       });
-    }
-  </script>
+  }
+
+  // Logs the user out.
+  function logout() {
+    firebase.auth().signOut().then(function () {
+      // Sign-out successful.
+    }).catch(function (error) {
+      // An error happened.
+    });
+  }
+</script>
 </body>
 
 </html>
